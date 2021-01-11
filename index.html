@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> 
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
+    <title>Document</title>
+</head>
+<style>
+    html {
+    min-height:100%;
+        }
+    body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: url(./img/bgImage.jpg);
+  background-size: 100%;
+  background-color: #cf4d4d;
+  background-position: bottom;
+  min-height: 100%;
+}
+.app-content{
+    background-color: rgba(255,255,255,0.8);
+}
+
+</style>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            state =()=>{
+                text="",
+                words=0,
+                char=0
+            };
+            handletext=(e)=>{
+                function WordCount(text) {
+                var wordCount = 1;
+                for (var i = 0; i <= text.length; i++) {
+                    if (text.charAt(i) == ' ') {
+                    wordCount++;
+                    }
+                }
+                var lines=text.split(/\r\n|\r|\n/).length;
+                lines--;
+                return (lines+wordCount);
+            }
+                function CharCount(str) { 
+                    return str.split("").length;
+                }
+                var words=WordCount(e.target.value);
+                var char=CharCount(e.target.value);
+                this.setState({
+                    char:char,
+                    words: words
+                })
+                console.log(words,char);
+            }
+            render() {
+                return (
+                    <div className="app-content">    
+                        <div className="container" >
+                            <h1>Hi there! Welcome to the wordcounter!</h1>
+                            <textarea type="text" id="text" className="materialize-textarea" onChange={this.handletext}></textarea>
+                            <h4>No. of Words: {this.state.words}</h4>
+                            <h4>No. of Characters: {this.state.char}</h4>
+                            </div>                    
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+</body>
+</html>
